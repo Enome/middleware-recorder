@@ -1,0 +1,16 @@
+{
+        "name": "middleware-recorder",
+        "version" : "0.0.1",
+        "repository": { "type": "git", "url": "git://github.com:Enome/middleware-recorder.git" },
+        "description": "Records middleware for asserting results",
+        "main": "index.js",
+        "author": "Geert Pasteels <twitter.com/enome>",
+        "keywords": [ "express", "testing", "middleware" ],
+
+        "dependencies": {
+                "underscore": "*"
+        },
+        "devDependencies": {
+                "should": "*"
+        }
+}
