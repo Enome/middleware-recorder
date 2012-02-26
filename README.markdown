@@ -3,6 +3,12 @@ Middleware recorder
 
 # What does this package do?
 
+# Installing it
+
+``` shell
+npm install middleware-recorder
+```
+
 It lets you pass a middleware to a recorder and record the result into an object you can assert.
 
 ## Basic usage
@@ -18,11 +24,11 @@ var middleware = function(req, res, next){
 
 var obj = {};
 record( middleware ).into( obj );
-
 console.log(obj);
 
 /* Logs the following object */
-obj = {
+
+{
   result: { 
     locals: { 
       email: 'jef@example.com' 
