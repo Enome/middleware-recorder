@@ -43,7 +43,7 @@ console.log(obj);
 
 ## Tape object
 
-We also provide you with a tape object you can record into that has two methods.
+We also provide you with a tape object you can record into that has three methods.
 
 ### Wipe
 
@@ -56,6 +56,22 @@ record( middleware ).into(tape);
 
 tape.wipe()
 ```
+
+#### Note
+
+The wipe method returns the tape object. So if you find yourself writing this a alot:
+
+``` js
+tape.wipe()
+record( middleware ).into( tape );
+```
+
+Then the following can save you one whole line of code:
+
+``` js
+record( middleware ).into( tape.wipe() );
+```
+
 
 ### Compare
 
