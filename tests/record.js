@@ -219,6 +219,28 @@ describe('Middleware Recorder', function(){
   });
 
 
+  describe('Next', function(){
+
+    var middleware = function(req, res, next){
+      next( new Error(404) )
+    };
+
+    beforeEach( function(){
+
+      tape.wipe();
+      record( middleware ).into( tape );
+
+    });
+
+    it('adds next is true to the result', function(){
+
+      tape.eql( { next: 404 } );
+
+    });
+
+  });
+
+
   describe('Asynchronize calls inside middleware', function(){
 
     var middleware = function(req, res, next){

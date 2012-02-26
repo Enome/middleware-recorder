@@ -23,8 +23,14 @@ module.exports = function(middleware, adjustReq, adjustRes){
         };
       };
 
-      next = function(){
-        response.result.next = true;
+      next = function(err){
+
+        if( typeof err !== 'undefined'){
+          response.result.next = err.message;
+        } else {
+          response.result.next = true;
+        };
+
         done();
       };
 
