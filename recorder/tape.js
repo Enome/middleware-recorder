@@ -8,6 +8,8 @@ exports.wipe = function(){
     
   };
 
+  return this;
+
 };
 
 exports.compare = function(obj){

@@ -4,10 +4,12 @@ describe('Tape', function(){
 
   describe('Wipe', function(){
 
+    var result = null;
+
     beforeEach(function(){
 
       tape.result = { username: 'Geert', password: '1234' };
-      tape.wipe();
+      result = tape.wipe();
 
     });
 
@@ -15,6 +17,12 @@ describe('Tape', function(){
 
       tape.eql({});
       
+    });
+
+    it('returns the tape objects', function(){
+
+      result.should.eql(tape);
+
     });
 
   });
