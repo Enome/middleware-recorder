@@ -1,2 +1,2 @@
-exports.middleware = require('./recorder/middleware');
+exports.record = require('./recorder/record');
 exports.tape = require('./recorder/tape');
