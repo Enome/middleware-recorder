@@ -13,7 +13,7 @@ describe('Tape', function(){
 
     it('should wipe the content of result', function(){
 
-      tape.result.should.eql({});
+      tape.eql({});
       
     });
 

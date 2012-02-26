@@ -16,20 +16,14 @@ describe('Middleware Recorder', function(){
 
     beforeEach( function(){
 
-      record( middleware ).into( tape );
-
-    });
-
-    afterEach( function(){
-
       tape.wipe()
+      record( middleware ).into( tape );
 
     });
 
     it('adds locals to the result', function(){
 
-      console.log(tape.result);
-      tape.result.should.eql({
+      tape.eql({
         locals: { email: 'jef@example.com' },
         session: { user: 'Geert' },
         next: true
@@ -70,7 +64,7 @@ describe('Middleware Recorder', function(){
 
     it('adds locals to the result', function(){
 
-      tape.result.should.eql({
+      tape.eql({
         locals: { email: 'jef@example.com' },
         session: { country: 'Belgium' },
         send: 'jef@example.com'
@@ -103,7 +97,7 @@ describe('Middleware Recorder', function(){
 
     it('adds locals to the result', function(){
 
-      tape.result.locals.email.should.eql('geert@example.com');
+      tape.eql( { locals: { email: 'geert@example.com' } });
 
     });
 
@@ -113,29 +107,19 @@ describe('Middleware Recorder', function(){
   describe('Render', function(){
 
     var middleware = function(req, res, next){
-
       res.render('users/new', { user: { username: 'Geert', password: '1234' } } );
-
     };
 
     beforeEach( function(){
 
-      record( middleware ).into( tape );
-
-    });
-
-    afterEach( function(){
-
       tape.wipe();
+      record( middleware ).into( tape );
 
     });
 
     it('add render to the result', function(){
 
-      tape.result.render.should.eql({
-        template:'users/new', 
-        locals: { user: { username: 'Geert', password: '1234' } } 
-      });
+      tape.eql( { render: { template: 'users/new', locals: { user: { username: 'Geert', password: '1234' } } } } ); 
 
     });
 
@@ -145,26 +129,19 @@ describe('Middleware Recorder', function(){
   describe('Redirect', function(){
 
     var middleware = function(req, res, next){
-
       res.redirect('/login');
-
     };
 
     beforeEach( function(){
 
-      record( middleware ).into( tape );
-
-    });
-
-    afterEach( function(){
-
       tape.wipe();
+      record( middleware ).into( tape );
 
     });
 
     it('add render to the result', function(){
 
-      tape.result.redirect.should.eql('/login');
+      tape.eql( { redirect: '/login' } );
 
     });
 
@@ -174,26 +151,20 @@ describe('Middleware Recorder', function(){
   describe('Send', function(){
 
     var middleware = function(req, res, next){
-
       res.send('Hello? Yes, this is dog.');
-
     };
 
     beforeEach( function(){
 
+      tape.wipe();
       record( middleware ).into( tape );
 
     });
 
-    afterEach( function(){
-
-      tape.wipe();
-
-    });
 
     it('add render to the result', function(){
 
-      tape.result.send.should.eql('Hello? Yes, this is dog.');
+      tape.eql( { send: 'Hello? Yes, this is dog.' } );
 
     });
 
@@ -202,27 +173,46 @@ describe('Middleware Recorder', function(){
 
   describe('Session', function(){
 
-    var middleware = function(req, res, next){
+    describe('Create', function(){
 
-      req.session.username = 'Geert';
+      var middleware = function(req, res, next){
+        req.session.username = 'Geert';
+      };
 
-    };
+      beforeEach( function(){
 
-    beforeEach( function(){
+        tape.wipe();
+        record( middleware ).into( tape );
 
-      record( middleware ).into( tape );
+      });
+
+
+      it('adds session to the result', function(){
+
+        tape.eql( { session: { username: 'Geert' } } );
+
+      });
 
     });
 
-    afterEach( function(){
+    describe('Destroy', function(){
 
-      tape.wipe();
+      var middleware = function(req, res, next){
+        req.session.destroy('username');
+      };
 
-    });
+      beforeEach( function(){
 
-    it('adds session to the result', function(){
+        tape.wipe();
+        record( middleware, { session: { username: 'geert' } } ).into( tape );
 
-      tape.result.session.username.should.eql('Geert');
+      });
+
+      it('removes the session from result', function(){
+
+        tape.eql({});
+
+      });
 
     });
 
@@ -251,7 +241,7 @@ describe('Middleware Recorder', function(){
 
     it('', function(){
 
-      tape.result.send.should.eql('barfoo');
+      tape.eql({ send: 'barfoo' });
 
     });
 

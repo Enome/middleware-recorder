@@ -17,6 +17,12 @@ module.exports = function(middleware, adjustReq, adjustRes){
       response = _.extend({ result:{}, done: done }, defaultRes(), adjustRes);
       request = _.extend({}, defaultReq(), adjustReq);
 
+      request.session.destroy = function(key){
+        if( typeof this[key] !== 'undefined' ){
+          delete this[key];
+        };
+      };
+
       next = function(){
         response.result.next = true;
         done();
@@ -24,6 +30,7 @@ module.exports = function(middleware, adjustReq, adjustRes){
 
       middleware(request, response, next);
 
+      delete request.session['destroy']
       if(!_.isEmpty(request.session)){
         response.result.session = request.session;
       };

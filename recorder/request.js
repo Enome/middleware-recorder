@@ -1,7 +1,7 @@
 module.exports = function() {
 
   return {
-    session: {}
+    session: { }
   }
 
 }
