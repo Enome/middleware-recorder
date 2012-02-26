@@ -1,13 +1,13 @@
 Middleware recorder
 ==================
 
-# What does this package do?
-
 # Installing it
 
 ``` shell
 npm install middleware-recorder
 ```
+
+# What does this package do?
 
 It lets you pass a middleware to a recorder and record the result into an object you can assert.
 
