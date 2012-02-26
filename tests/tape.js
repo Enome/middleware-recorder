@@ -28,16 +28,23 @@ describe('Tape', function(){
 
       tape.result = { username: 'Geert', password: '1234' };
 
-      //Inject fake console log
-      tape.inject(function(s){ comparison = s; });
-
-      tape.compare({ username: 'Gert' });
-
     });
 
     it('returns a compare string', function(){
 
-      comparison.should.eql('{\n  "username" : \u001b[34m\u001b[1m"Gert"\u001b[0m,\n  \u001b[31m\u001b[1m"password" : "1234"\u001b[0m\n}');
+      tape.compare({ username: 'Gert' }).should.eql('{\n  "username" : \u001b[34m\u001b[1m"Gert"\u001b[0m,\n  \u001b[31m\u001b[1m"password" : "1234"\u001b[0m\n}');
+
+    });
+
+  });
+
+
+  describe('Equal', function(){
+
+    it( 'equals eachother', function(){
+
+      tape.result = { username: 'Geert', password: '1234' };
+      tape.eql( {username: 'Geert', password: '1234' } );
 
     });
 

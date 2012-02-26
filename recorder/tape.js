@@ -1,10 +1,4 @@
-var log = console.log
-
-exports.inject = function(_log){
-
-  log = _log;
-
-};
+var assert = require('assert')
 
 exports.wipe = function(){
 
@@ -28,7 +22,23 @@ exports.compare = function(obj){
   }
 
   var diff = difflet( { indent : 2} );
-  log( diff.compare( this.result, obj ) );
+  return diff.compare( this.result, obj );
 
 
 };
+
+exports.eql = function(obj){
+
+  var util = require('util');
+  var difflet = require('difflet');
+  var diff = difflet( { indent : 2} );
+  var dff = diff.compare( this.result, obj );
+
+  var compare = '\n\u001b[0m'
+                 + '\n\nRESULT:   ' + JSON.stringify(this.result, false, null)
+                 + '\nEXPECTED: ' + JSON.stringify(obj, false, null)
+                 + '\nDIFF: \n' + dff 
+
+  assert.deepEqual( obj, this.result, compare);
+
+}

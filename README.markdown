@@ -65,7 +65,7 @@ To use compare you need to install the optional package difflet.
 npm install difflet
 ```
 
-If you like testing the whole result object instead each property it sometimes can be annoying to see the difference between what you expect and tape.result. So I added a compare method to tape which uses difflet package.
+This will show you a diff between the result and the expected object.
 
 
 ``` js
@@ -77,10 +77,27 @@ var expected = {
   //...
 };
 
-tape.compare(expected);
+console.log( tape.compare(expected) );
 ```
 
 This will use console.log to output the difference between the two objects.
+
+
+### Eql
+
+This will do a assert.deepEqual between the result and the expected object. It will use compare to output the error message if the assertion fails. ( So for this you also need difflet ) This is usefull when you are testing the complete result instead of small parts of it.
+
+``` js
+var tape = require('middleware-recorder').tape;
+
+record( middleware ).into(tape);
+
+var expected = {
+  //...
+};
+
+tape.eql(expected);
+```
 
 
 ## The request object
