@@ -1,3 +1,5 @@
+**Outdated: use [express-recorder](https://github.com/Enome/middleware-recorder) instead**
+
 Middleware recorder
 ==================
 
