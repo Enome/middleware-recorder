@@ -1,4 +1,4 @@
-**Outdated: use [express-recorder](https://github.com/Enome/middleware-recorder) instead**
+**Outdated: use [express-recorder](https://github.com/Enome/express-recorder) instead**
 
 Middleware recorder
 ==================
